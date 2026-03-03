@@ -1,4 +1,4 @@
-name: nfc_reader
+name: pilem
 description: "A new Flutter project."
 publish_to: 'none'
 version: 0.1.0
@@ -9,8 +9,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl: ^0.20.2           # Untuk format tanggal dan waktu
-  nfc_manager: ^3.5.0     # Library utama untuk membaca NFC
 
 dev_dependencies:
   flutter_test:
