@@ -19,7 +19,7 @@ class Movie {
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
-      id: json['id'] ?? 0, // ?? untuk menghandle null value
+      id: json['id'] ?? 0,
       title: json['title'] ?? 'Unknown',
       overview: json['overview'] ?? '',
       posterPath: json['poster_path'] ?? '',
@@ -27,5 +27,18 @@ class Movie {
       releaseDate: json['release_date'] ?? '',
       voteAverage: (json['vote_average'] ?? 0).toDouble(),
     );
+  }
+
+  // ✅ Tambahkan method baru di bawah ini
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'overview': overview,
+      'poster_path': posterPath,
+      'backdrop_path': backdropPath,
+      'release_date': releaseDate,
+      'vote_average': voteAverage,
+    };
   }
 }
