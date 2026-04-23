@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mdp_gold/screens/price_list.dart';
+import 'package:mdp_gold/screens/price_list_screen.dart';
 import 'package:mdp_gold/screens/register_screen.dart';
 import 'package:mdp_gold/services/auth_service.dart';
 
@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       if (mounted) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const PriceList()),
+          MaterialPageRoute(builder: (context) => const PriceListScreen()),
         );
       }
     } catch (e) {

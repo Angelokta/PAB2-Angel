@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mdp_gold/screens/price_list.dart';
+import 'package:mdp_gold/screens/price_list_screen.dart';
 import 'package:mdp_gold/services/auth_service.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -39,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (mounted) {
         // pushAndRemoveUntil menghapus semua halaman sebelumnya dari stack
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const PriceList()),
+          MaterialPageRoute(builder: (context) => const PriceListScreen()),
           (route) => false,
         );
       }

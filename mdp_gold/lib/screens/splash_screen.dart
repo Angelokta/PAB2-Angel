@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mdp_gold/screens/login_screen.dart';
-import 'package:mdp_gold/screens/price_list.dart';
+import 'package:mdp_gold/screens/price_list_screen.dart';
 import 'package:mdp_gold/services/auth_service.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (user != null) {
       // Jika sudah login, langsung ke halaman utama
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const PriceList()),
+        MaterialPageRoute(builder: (context) => const PriceListScreen()),
       );
     } else {
       // Jika belum login, ke halaman login
