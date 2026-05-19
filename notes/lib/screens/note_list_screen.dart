@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:notes/services/note_service.dart';
 import '../models/note.dart';
-import '../services/note_service.dart';
 import '../widgets/note_dialog.dart';
+import 'subscribe_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import '../services/fcm_service.dart';
@@ -30,12 +31,11 @@ class _NoteListScreenState extends State<NoteListScreen> {
       try {
         await _noteService.addNote(note);
 
-        // Send notification via REST API
+         // Send notification via REST API
         await _fcmService.sendNoteNotification(
-          title: note.title,
-          description: note.description,
-        );
-
+        title: note.title,
+        description: note.description,
+    );
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -140,18 +140,8 @@ class _NoteListScreenState extends State<NoteListScreen> {
   /// Format date to readable string
   String _formatDate(DateTime date) {
     final months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
     return '${date.day} ${months[date.month - 1]} ${date.year}, '
         '${date.hour.toString().padLeft(2, '0')}:'
@@ -170,6 +160,16 @@ class _NoteListScreenState extends State<NoteListScreen> {
           ],
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.subscriptions),
+            tooltip: 'Langganan Topik',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SubscribeScreen()),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.copy_all),
             tooltip: 'Copy FCM Token',
@@ -191,12 +191,16 @@ class _NoteListScreenState extends State<NoteListScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
+
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.deepPurple.shade50, Colors.white],
+            colors: [
+              Colors.deepPurple.shade50,
+              Colors.white,
+            ],
           ),
         ),
         child: StreamBuilder<List<Note>>(
@@ -213,11 +217,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.error_outline,
-                      size: 64,
-                      color: Colors.red.shade300,
-                    ),
+                    Icon(Icons.error_outline, size: 64, color: Colors.red.shade300),
                     const SizedBox(height: 16),
                     Text(
                       'Terjadi kesalahan',
@@ -305,9 +305,8 @@ class _NoteListScreenState extends State<NoteListScreen> {
           // Image (if available)
           if (note.imageBase64 != null && note.imageBase64!.isNotEmpty)
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(16),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(16)),
               child: Image.memory(
                 base64Decode(note.imageBase64!),
                 height: 200,
