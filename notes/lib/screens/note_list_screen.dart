@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:notes/l10n/app_localizations.dart';
+import 'package:notes/main.dart';
 import 'package:notes/services/note_service.dart';
 import '../models/note.dart';
 import '../widgets/note_dialog.dart';
@@ -150,16 +152,47 @@ class _NoteListScreenState extends State<NoteListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final currentLocale = Localizations.localeOf(context).languageCode;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
-          children: [
-            Icon(Icons.sticky_note_2, color: Colors.white),
-            SizedBox(width: 8),
-            Text('My Notes'),
+        title: Text(l10n.appTitle),
+        actions: [
+          PopupMenuButton<String>(
+          icon: const Icon(Icons.language), // ikon globe
+          tooltip: l10n.language,
+          onSelected: (code) => MainApp.setLocale(Locale(code)), // ganti bahasa
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              value: 'id',
+              child: Row(
+                children: [
+                  // Tampilkan centang jika bahasa ini sedang aktif
+                  if (currentLocale == 'id')
+                    const Icon(Icons.check, size: 18, color: Colors.deepPurple)
+                  else
+                    const SizedBox(width: 18),
+                  const SizedBox(width: 8),
+                  Text(l10n.languageIndonesian),
+                ],
+              ),
+            ),
+            PopupMenuItem(
+              value: 'en',
+              child: Row(
+                children: [
+                  if (currentLocale == 'en')
+                    const Icon(Icons.check, size: 18, color: Colors.deepPurple)
+                  else
+                    const SizedBox(width: 18),
+                  const SizedBox(width: 8),
+                  Text(l10n.languageEnglish),
+                ],
+              ),
+            ),
           ],
         ),
-        actions: [
           IconButton(
             icon: const Icon(Icons.subscriptions),
             tooltip: 'Langganan Topik',

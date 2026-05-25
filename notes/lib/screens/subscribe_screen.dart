@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/fcm_service.dart';
+import '../l10n/app_localizations.dart';
 
 class SubscribeScreen extends StatefulWidget {
   const SubscribeScreen({Key? key}) : super(key: key);
@@ -87,11 +88,12 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final otherTopics = _subscribedTopics.where((t) => !_suggestedTopics.contains(t)).toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Langganan Topik'),
+        title: Text(l10n.subscribeScreenTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
